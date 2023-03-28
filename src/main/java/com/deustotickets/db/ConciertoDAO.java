@@ -72,7 +72,7 @@ public class ConciertoDAO extends DataAccessObjectBase implements IDataAccessObj
 		try {
 			tx.begin();
 						
-			Query query = pm.newQuery("SELECT FROM " + Concierto.class.getName() + " WHERE number == " + param);
+			Query query = pm.newQuery("SELECT FROM " + Concierto.class.getName() + " WHERE id == '" + param + "'");
 			query.setUnique(true);
 			result = (Concierto) query.execute();
 			

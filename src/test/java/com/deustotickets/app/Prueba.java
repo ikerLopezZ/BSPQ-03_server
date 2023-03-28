@@ -25,13 +25,13 @@ public class Prueba {
 	Artista a2 = new Artista("Marco", "Marquez", "marco@gmail.com", "456", TipoUsuario.ARTISTA, TipoGenero.REGGAETON);
 	Artista a3 = new Artista("Jon", "Bilbao", "jon@gmail.com", "789", TipoUsuario.ARTISTA, TipoGenero.COUNTRY);
 	
-	Concierto c1 = new Concierto(a1, "12/12/2023", "BEC - Bilbao", 10500);
-	Concierto c2 = new Concierto(a2, "24/06/2023", "Wizink Center - Madrid", 50000);
-	Concierto c3 = new Concierto(a3, "01/02/2024", "Kafe Antzokia - Bilbao", 100);
+	Concierto c1 = new Concierto("BEC1", a1, "12/12/2023", "BEC - Bilbao", 10500);
+	Concierto c2 = new Concierto("BEC2", a2, "24/06/2023", "Wizink Center - Madrid", 50000);
+	Concierto c3 = new Concierto("BEC3", a3, "01/02/2024", "Kafe Antzokia - Bilbao", 100);
 
-	Entrada e1 = new Entrada(0, a1, 50.35, "Normal");
-	Entrada e2 = new Entrada(1, a2, 137.23, "VIP");
-	Entrada e3 = new Entrada(2, a3, 40.99, "Noche");
+	Entrada e1 = new Entrada("0", c1, 50.35, "Normal");
+	Entrada e2 = new Entrada("1", c2, 137.23, "VIP");
+	Entrada e3 = new Entrada("2", c3, 40.99, "Noche");
 	
 	Usuario u1 = new Usuario("Pablo", "Martinez", "pablo@gmail.com", "pablo123", TipoUsuario.CLIENTE);
 	Usuario u2 = new Usuario("Maria", "Pascual", "maria@gmail.com", "maria123", TipoUsuario.CLIENTE);
@@ -43,15 +43,15 @@ public class Prueba {
 	
 	@Before
 	public void setUp() throws Exception {
-		//Guardamos los CONCIERTOS en la BD:
-		ConciertoDAO.getInstance().save(c1);
-		ConciertoDAO.getInstance().save(c2);
-		ConciertoDAO.getInstance().save(c3);
-		
 		//Guardamos las ENTRADAS en la BD:
 		EntradaDAO.getInstance().save(e1);
 		EntradaDAO.getInstance().save(e2);
 		EntradaDAO.getInstance().save(e3);
+		
+		//Guardamos los CONCIERTOS en la BD:
+		ConciertoDAO.getInstance().save(c1);
+		ConciertoDAO.getInstance().save(c2);
+		ConciertoDAO.getInstance().save(c3);
 		
 		//Guardamos los ARTISTAS en la BD:
 		UsuarioDAO.getInstance().save(a1);
@@ -72,15 +72,15 @@ public class Prueba {
 
 	@After
 	public void tearDown() throws Exception {
-		//Borramos los CONCIERTOS de la BD:
-		ConciertoDAO.getInstance().delete(c1);
-		ConciertoDAO.getInstance().delete(c2);
-		ConciertoDAO.getInstance().delete(c3);
-
 		//Borramos las ENTRADAS de la BD:
 		EntradaDAO.getInstance().delete(e1);
 		EntradaDAO.getInstance().delete(e2);
 		EntradaDAO.getInstance().delete(e3);
+		
+		//Borramos los CONCIERTOS de la BD:
+		ConciertoDAO.getInstance().delete(c1);
+		ConciertoDAO.getInstance().delete(c2);
+		ConciertoDAO.getInstance().delete(c3);
 		
 		//Borramos los ARTISTAS de la BD:
 		ArtistaDAO.getInstance().delete(a1);
@@ -110,13 +110,9 @@ public class Prueba {
 	
 	@Test
 	public void findArtistaTest() {
-		int resultado = 0;
-		String nombreArtista = a1.getNombreApellidos();
-		Artista artista = ArtistaDAO.getInstance().find(nombreArtista);
-		if(nombreArtista.equals(artista.getNombreApellidos())) {
-			resultado = 1;
-		}
-		assertEquals(1, resultado);
+		String email = a1.getEmail();
+		Artista artista = ArtistaDAO.getInstance().find(email);
+		assertEquals(email, artista.getEmail());
 	}
 	
 	// ConciertoDAO
@@ -127,16 +123,12 @@ public class Prueba {
 		assertEquals(true, comp);
 	}
 	
-//	@Test
-//	public void findConciertoTest() {
-//		int resultado = 0;
-//		int idConcierto = c1.get;	//get id?
-//		Concierto concierto = ConciertoDAO.getInstance().find(idConcierto);
-//		if(idConcierto.equals(concierto.get())) {	//get id?
-//			resultado = 1;
-//		}
-//		assertEquals(1, resultado); 
-//	}
+	@Test
+	public void findConciertoTest() {
+		String idInput = "BEC1";
+		Concierto concierto = ConciertoDAO.getInstance().find(idInput);
+		assertEquals(idInput, concierto.getId());
+	}
 	
 	// EntradaDAO
 	@Test
@@ -148,13 +140,9 @@ public class Prueba {
 	
 	@Test
 	public void findEntradaTest() {
-		int resultado = 0;
-		String nombreEntrada = e1.getNombre();
-		Entrada entrada = EntradaDAO.getInstance().find(nombreEntrada);
-		if(nombreEntrada.equals(entrada.getNombre())) {
-			resultado = 1;
-		}
-		assertEquals(1, resultado); 
+		String id = e1.getId();
+		Entrada entrada = EntradaDAO.getInstance().find(id);
+		assertEquals(id, entrada.getId()); 
 	}
 	
 	// UsuarioDAO
@@ -167,12 +155,8 @@ public class Prueba {
 	
 	@Test
 	public void findUsuarioTest() {
-		int resultado = 0;
-		String nombreUsuario = u1.getNombreApellidos();
-		Usuario usuario = UsuarioDAO.getInstance().find(nombreUsuario);
-		if(nombreUsuario.equals(usuario.getNombreApellidos())) {
-			resultado = 1;
-		}
-		assertEquals(1, resultado); 
+		String email= u1.getEmail();
+		Usuario usuario = UsuarioDAO.getInstance().find(email);
+		assertEquals(email, usuario.getEmail()); 
 	}
 }

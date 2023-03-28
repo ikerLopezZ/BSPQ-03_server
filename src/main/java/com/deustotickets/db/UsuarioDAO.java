@@ -72,7 +72,7 @@ public class UsuarioDAO extends DataAccessObjectBase implements IDataAccessObjec
 		try {
 			tx.begin();
 						
-			Query query = pm.newQuery("SELECT FROM " + Usuario.class.getName() + " WHERE number == " + param);
+			Query query = pm.newQuery("SELECT FROM " + Usuario.class.getName() + " WHERE email == '" + param+"'");
 			query.setUnique(true);
 			result = (Usuario) query.execute();
 			

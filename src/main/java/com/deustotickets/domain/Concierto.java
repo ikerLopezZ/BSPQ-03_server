@@ -1,14 +1,12 @@
 package com.deustotickets.domain;
 
-import javax.jdo.annotations.ForeignKey;
-import javax.jdo.annotations.Join;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 
 @PersistenceCapable(detachable="true")
 public class Concierto {
 	//Atributos:
-	private int id;
+	private String id;
 	@Persistent(defaultFetchGroup = "true")
 	private Artista artista;
 	private String fecha;
@@ -16,8 +14,9 @@ public class Concierto {
 	private int aforo;
 	
 	//Constructor
-	public Concierto(Artista artista, String fecha, String lugar, int aforo) {
+	public Concierto(String id, Artista artista, String fecha, String lugar, int aforo) {
 		super();
+		this.id = id;
 		this.artista = artista;
 		this.fecha = fecha;
 		this.lugar = lugar;
@@ -55,6 +54,14 @@ public class Concierto {
 
 	public void setAforo(int aforo) {
 		this.aforo = aforo;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	//toString

@@ -72,7 +72,7 @@ public class EntradaDAO extends DataAccessObjectBase implements IDataAccessObjec
 		try {
 			tx.begin();
 						
-			Query query = pm.newQuery("SELECT FROM " + Entrada.class.getName() + " WHERE number == " + param);
+			Query query = pm.newQuery("SELECT FROM " + Entrada.class.getName() + " WHERE id == '" + param+"'");
 			query.setUnique(true);
 			result = (Entrada) query.execute();
 			

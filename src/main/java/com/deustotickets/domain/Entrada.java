@@ -2,58 +2,70 @@ package com.deustotickets.domain;
 
 import javax.jdo.annotations.*;
 
-@PersistenceCapable(detachable="true")
+@PersistenceCapable(detachable = "true")
 public class Entrada {
-	//Atributos:
-	private int id;
-	private Artista artista;	//En un futuro hay que meterlo como una clase
+	// Atributos:
+	private String id;
+	@Persistent(defaultFetchGroup = "true")
+	private Concierto concierto;
 	private double precio;
 	private String nombre;
-	//Pensar si queremos hacer tipos de entrada (VIP, normal...)
-	
-	//Constructor
-	public Entrada(int id, Artista artista, double precio, String nombre) {
+	// Pensar si queremos hacer tipos de entrada (VIP, normal...)
+
+	// Constructor
+	public Entrada(String id, Concierto concierto, double precio, String nombre) {
 		super();
 		this.id = id;
-		this.artista = artista;
+		this.concierto = concierto;
 		this.precio = precio;
 		this.nombre = nombre;
 	}
-	
-	//Getters y setters
-	public int getId() {
+
+	// Getters y setters
+	public String getId() {
 		return id;
 	}
-	
-	public void setId(int id) {
+
+	public void setId(String id) {
 		this.id = id;
 	}
-	public Artista getArtista() {
-		return artista;
+
+	public Concierto getconcierto() {
+		return concierto;
 	}
-	public void setArtista(Artista artista) {
-		this.artista = artista;
+
+	public void setconcierto(Concierto concierto) {
+		this.concierto = concierto;
 	}
+
 	public double getPrecio() {
 		return precio;
 	}
+
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
+
 	public String getNombre() {
 		return nombre;
 	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-	//toString
+	public Concierto getConcierto() {
+		return concierto;
+	}
+
+	public void setConcierto(Concierto concierto) {
+		this.concierto = concierto;
+	}
+
+	// toString
 	@Override
 	public String toString() {
-		return "Entrada [id=" + id + ", artista=" + artista + ", precio=" + precio + ", nombre=" + nombre + "]";
+		return "Entrada [id=" + id + ", concierto=" + concierto + ", precio=" + precio + ", nombre=" + nombre + "]";
 	}
-	
-	
-	
 
 }
