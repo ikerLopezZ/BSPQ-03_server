@@ -108,6 +108,17 @@ public class Prueba {
 		assertEquals(true, comp);
 	}
 	
+	@Test
+	public void findArtistaTest() {
+		int resultado = 0;
+		String nombreArtista = a1.getNombreApellidos();
+		Artista artista = ArtistaDAO.getInstance().find(nombreArtista);
+		if(nombreArtista.equals(artista.getNombreApellidos())) {
+			resultado = 1;
+		}
+		assertEquals(1, resultado);
+	}
+	
 	// ConciertoDAO
 	@Test
 	public void getAllConciertoTest() {
@@ -115,6 +126,17 @@ public class Prueba {
 		boolean comp = (todosConciertos.size()==3);
 		assertEquals(true, comp);
 	}
+	
+//	@Test
+//	public void findConciertoTest() {
+//		int resultado = 0;
+//		int idConcierto = c1.get;	//get id?
+//		Concierto concierto = ConciertoDAO.getInstance().find(idConcierto);
+//		if(idConcierto.equals(concierto.get())) {	//get id?
+//			resultado = 1;
+//		}
+//		assertEquals(1, resultado); 
+//	}
 	
 	// EntradaDAO
 	@Test
@@ -124,11 +146,33 @@ public class Prueba {
 		assertEquals(true, comp);
 	}
 	
+	@Test
+	public void findEntradaTest() {
+		int resultado = 0;
+		String nombreEntrada = e1.getNombre();
+		Entrada entrada = EntradaDAO.getInstance().find(nombreEntrada);
+		if(nombreEntrada.equals(entrada.getNombre())) {
+			resultado = 1;
+		}
+		assertEquals(1, resultado); 
+	}
+	
 	// UsuarioDAO
 	@Test
 	public void getAllUsuarioTest() {
 		List<Usuario> todosUsuarios = UsuarioDAO.getInstance().getAll();
 		boolean comp = (todosUsuarios.size()==9);	//9, porque también entran los artistas en esta clase.
 		assertEquals(true, comp);
+	}
+	
+	@Test
+	public void findUsuarioTest() {
+		int resultado = 0;
+		String nombreUsuario = u1.getNombreApellidos();
+		Usuario usuario = UsuarioDAO.getInstance().find(nombreUsuario);
+		if(nombreUsuario.equals(usuario.getNombreApellidos())) {
+			resultado = 1;
+		}
+		assertEquals(1, resultado); 
 	}
 }
