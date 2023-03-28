@@ -21,9 +21,9 @@ import com.deustotickets.domain.Usuario;
 
 public class Prueba {
 
-	Artista a1 = new Artista("Ana", "Alonso", "ana@gmail.com", "123", TipoUsuario.ARTISTA, TipoGenero.GOSPEL);
-	Artista a2 = new Artista("Marco", "Marquez", "marco@gmail.com", "456", TipoUsuario.ARTISTA, TipoGenero.REGGAETON);
-	Artista a3 = new Artista("Jon", "Bilbao", "jon@gmail.com", "789", TipoUsuario.ARTISTA, TipoGenero.COUNTRY);
+	Artista a1 = new Artista("Ana Alonso", "ana@gmail.com", "123", TipoUsuario.ARTISTA, TipoGenero.GOSPEL);
+	Artista a2 = new Artista("Marco Marquez", "marco@gmail.com", "456", TipoUsuario.ARTISTA, TipoGenero.REGGAETON);
+	Artista a3 = new Artista("Jon Bilbao", "jon@gmail.com", "789", TipoUsuario.ARTISTA, TipoGenero.COUNTRY);
 	
 	Concierto c1 = new Concierto("BEC1", a1, "12/12/2023", "BEC - Bilbao", 10500);
 	Concierto c2 = new Concierto("BEC2", a2, "24/06/2023", "Wizink Center - Madrid", 50000);
@@ -33,13 +33,13 @@ public class Prueba {
 	Entrada e2 = new Entrada("1", c2, 137.23, "VIP");
 	Entrada e3 = new Entrada("2", c3, 40.99, "Noche");
 	
-	Usuario u1 = new Usuario("Pablo", "Martinez", "pablo@gmail.com", "pablo123", TipoUsuario.CLIENTE);
-	Usuario u2 = new Usuario("Maria", "Pascual", "maria@gmail.com", "maria123", TipoUsuario.CLIENTE);
-	Usuario u3 = new Usuario("Itzi", "Ramos", "itzi@gmail.com", "itzi123", TipoUsuario.CLIENTE);
+	Usuario u1 = new Usuario("Pablo Martinez", "pablo@gmail.com", "pablo123", TipoUsuario.CLIENTE);
+	Usuario u2 = new Usuario("Maria Pascual", "maria@gmail.com", "maria123", TipoUsuario.CLIENTE);
+	Usuario u3 = new Usuario("Itzi Ramos", "itzi@gmail.com", "itzi123", TipoUsuario.CLIENTE);
 	
-	Usuario gestor1 = new Usuario("Peio", "Gonzalez", "peio@gmail.com", "gestor123", TipoUsuario.GESTOR);
-	Usuario gestor2 = new Usuario("Amaia", "Sanz", "amaia@gmail.com", "gestor123", TipoUsuario.GESTOR);
-	Usuario gestor3 = new Usuario("Elisa", "Alonso", "elisa@gmail.com", "gestor123", TipoUsuario.GESTOR);
+	Usuario gestor1 = new Usuario("Peio Gonzalez", "peio@gmail.com", "gestor123", TipoUsuario.GESTOR);
+	Usuario gestor2 = new Usuario("Amaia Sanz", "amaia@gmail.com", "gestor123", TipoUsuario.GESTOR);
+	Usuario gestor3 = new Usuario("Elisa Alonso", "elisa@gmail.com", "gestor123", TipoUsuario.GESTOR);
 	
 	@Before
 	public void setUp() throws Exception {

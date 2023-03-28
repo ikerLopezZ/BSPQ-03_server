@@ -22,6 +22,9 @@ public class Concierto {
 		this.lugar = lugar;
 		this.aforo = aforo;
 	}
+	
+	public Concierto() {
+	}
 
 	//Getters y setters
 	public Artista getArtista() {

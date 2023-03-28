@@ -20,6 +20,9 @@ public class Entrada {
 		this.precio = precio;
 		this.nombre = nombre;
 	}
+	
+	public Entrada() {
+	}
 
 	// Getters y setters
 	public String getId() {

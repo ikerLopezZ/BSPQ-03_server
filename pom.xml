@@ -4,10 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.deustotickets.app</groupId>
 	<artifactId>BSPQ-03_server</artifactId>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
 	<name>BSPQ-03_server</name>
 	<url>http://maven.apache.org</url>
+	
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -19,13 +20,11 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>
 			<artifactId>jersey-container-servlet-core</artifactId>
-			<!-- use the following artifactId if you don't need servlet 2.x
-			compatibility -->
-			<!--<artifactId>jersey-container-servlet</artifactId>-->
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.inject</groupId>
@@ -82,19 +81,20 @@
 			<version>8.0.29</version>
 		</dependency>
 	</dependencies>
+	
 	<build>
-		<finalName>simple-jersey-webapp</finalName>
+		<resources>
+			<resource>
+				<directory>${config.files.dir}</directory>
+				<includes>
+					<include>**/*.jdo</include>
+					<include>**/*.orm</include>
+					<include>**/*.properties</include>
+				</includes>
+			</resource>
+		</resources>
+
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
-			</plugin>
-			<plugin>
-				<groupId>org.eclipse.jetty</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
-				<version>9.4.46.v20220331</version>
-			</plugin>
 			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
 				<version>3.2.0</version>
@@ -110,6 +110,18 @@
 					</filesets>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.3.2</version>
+			</plugin>
+
 			<plugin>
 				<groupId>org.datanucleus</groupId>
 				<artifactId>datanucleus-maven-plugin</artifactId>
@@ -119,6 +131,7 @@
 					<verbose>true</verbose>
 					<props>${config.files.dir}/datanucleus.properties</props>
 				</configuration>
+				
 				<executions>
 					<execution>
 						<!-- links the enhance to the compile phase -->
@@ -128,7 +141,13 @@
 						</goals>
 					</execution>
 				</executions>
+				
 			</plugin>
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.4.46.v20220331</version>
+            </plugin>
 
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -158,6 +177,7 @@
 			</plugin>
 		</plugins>
 	</build>
+	
 	<properties>
 		<jersey.version>2.35</jersey.version>
 		<maven.compiler.release>8</maven.compiler.release>
@@ -165,4 +185,30 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.release>8</maven.compiler.release>
 	</properties>
+	
+	<profiles>
+		<profile>
+			<id>client</id>
+			<build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.2.1</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>java</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <mainClass>com.deustotickets.app.App</mainClass>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+		</profile>
+	</profiles>
+	
 </project>

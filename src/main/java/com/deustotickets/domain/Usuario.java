@@ -6,6 +6,8 @@ import javax.jdo.annotations.PersistenceCapable;
 
 @PersistenceCapable(detachable="true")
 public class Usuario implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	// Atributos:
 	private String nombreApellidos;
 	private String email;
@@ -13,15 +15,15 @@ public class Usuario implements Serializable{
 	private TipoUsuario tipo;
 	
 	//Constructor:
-	public Usuario(String nombre, String apellidos, String email, String password, TipoUsuario tipo) {
+	public Usuario(String nombreApellidos, String email, String password, TipoUsuario tipo) {
 		super();
+		this.nombreApellidos = nombreApellidos;
 		this.email = email;
 		this.password = password;
 		this.tipo = tipo;
 	}
 	
 	public Usuario() {
-		super();
 	}
 
 
