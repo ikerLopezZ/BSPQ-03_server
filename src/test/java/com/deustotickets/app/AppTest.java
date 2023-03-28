@@ -1,8 +1,14 @@
 package com.deustotickets.app;
 
+import com.deustotickets.domain.Artista;
+import com.deustotickets.domain.TipoGenero;
+import com.deustotickets.domain.TipoUsuario;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * Unit test for simple App.
@@ -35,4 +41,5 @@ public class AppTest
     {
         assertTrue( true );
     }
+    
 }

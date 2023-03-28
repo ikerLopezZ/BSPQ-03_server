@@ -1,9 +1,11 @@
 package com.deustotickets.domain;
 
+import java.io.Serializable;
+
 import javax.jdo.annotations.PersistenceCapable;
 
 @PersistenceCapable(detachable="true")
-public class Usuario {
+public class Usuario implements Serializable{
 	// Atributos:
 	private String nombreApellidos;
 	private String email;
