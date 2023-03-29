@@ -47,7 +47,7 @@ public class Resource {
 			try {
 				pm.makePersistent(user);
 				logger.info("El usuario ha sido registrado");
-			} catch(Exception e) {
+			} catch (Exception e) {
 				logger.info("Error al registrar");
 			}
 			tx.commit();
@@ -58,21 +58,14 @@ public class Resource {
 			}
 		}
 	}
-	
+
 	@POST
 	@Path("/login")
 	public Response loginUser(Usuario user) {
 		try {
-			if(user.getTipo() == TipoUsuario.CLIENTE) {
-				Usuario u = UsuarioDAO.getInstance().find(user.getEmail());
-				return Response.ok(u, MediaType.APPLICATION_JSON).build();
-			} else if(user.getTipo() == TipoUsuario.ARTISTA) {
-				Artista a = ArtistaDAO.getInstance().find(user.getEmail());
-				return Response.ok(a, MediaType.APPLICATION_JSON).build();
-			} else if(user.getTipo() == TipoUsuario.GESTOR) {
-				Usuario u = UsuarioDAO.getInstance().find(user.getEmail());
-				return Response.ok(u, MediaType.APPLICATION_JSON).build();
-			}
+			Usuario u = UsuarioDAO.getInstance().find(user.getEmail());
+			return Response.ok(u, MediaType.APPLICATION_JSON).build();
+		} catch (Exception e){
 			return Response.serverError().build();
 		} finally {
 			if (tx.isActive()) {
