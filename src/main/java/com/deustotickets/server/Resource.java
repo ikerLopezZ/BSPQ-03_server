@@ -12,9 +12,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-
+import javax.ws.rs.client.Invocation;
 import org.apache.logging.log4j.Logger;
-
+import org.glassfish.jersey.client.spi.InvocationBuilderListener.InvocationBuilderContext;
+import org.omg.PortableInterceptor.USER_EXCEPTION;
+import com.deustotickets.db.ArtistaDAO;
+import com.deustotickets.db.UsuarioDAO;
+import com.deustotickets.domain.Artista;
+import com.deustotickets.domain.TipoUsuario;
 import com.deustotickets.domain.Usuario;
 
 import org.apache.logging.log4j.LogManager;
@@ -47,6 +52,28 @@ public class Resource {
 			}
 			tx.commit();
 			return Response.ok().build();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+		}
+	}
+	
+	@POST
+	@Path("/login")
+	public Response loginUser(Usuario user) {
+		try {
+			if(user.getTipo() == TipoUsuario.CLIENTE) {
+				Usuario u = UsuarioDAO.getInstance().find(user.getEmail());
+				return Response.ok(u, MediaType.APPLICATION_JSON).build();
+			} else if(user.getTipo() == TipoUsuario.ARTISTA) {
+				Artista a = ArtistaDAO.getInstance().find(user.getEmail());
+				return Response.ok(a, MediaType.APPLICATION_JSON).build();
+			} else if(user.getTipo() == TipoUsuario.GESTOR) {
+				Usuario u = UsuarioDAO.getInstance().find(user.getEmail());
+				return Response.ok(u, MediaType.APPLICATION_JSON).build();
+			}
+			return Response.serverError().build();
 		} finally {
 			if (tx.isActive()) {
 				tx.rollback();
