@@ -1,4 +1,4 @@
-package com.deustotickets.app;
+package com.deustotickets.server;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
