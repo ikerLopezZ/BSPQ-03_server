@@ -1,4 +1,4 @@
-package com.deustotickets.db;
+package com.deustotickets.dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,11 @@ import javax.jdo.Transaction;
 
 import com.deustotickets.domain.Concierto;
 
+/**
+ * 
+ * @author BSPQ-03
+ *
+ */
 public class ConciertoDAO extends DataAccessObjectBase implements IDataAccessObject<Concierto> {
 	private static ConciertoDAO instance;	
 	

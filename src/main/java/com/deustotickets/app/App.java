@@ -1,7 +1,8 @@
 package com.deustotickets.app;
 
 /**
- * Hello world!
+ * 
+ * @author BSPQ-03
  *
  */
 public class App 

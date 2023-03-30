@@ -1,4 +1,4 @@
-package com.deustotickets.db;
+package com.deustotickets.dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,11 @@ import javax.jdo.Transaction;
 
 import com.deustotickets.domain.Artista;
 
+/**
+ * 
+ * @author BSPQ-03
+ *
+ */
 public class ArtistaDAO extends DataAccessObjectBase implements IDataAccessObject<Artista> {
 	private static ArtistaDAO instance;	
 	
@@ -32,6 +37,7 @@ public class ArtistaDAO extends DataAccessObjectBase implements IDataAccessObjec
 		super.deleteObject(object);
 	}
 
+	
 	@Override
 	public List<Artista> getAll() {				
 		PersistenceManager pm = pmf.getPersistenceManager();

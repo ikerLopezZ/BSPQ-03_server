@@ -2,6 +2,11 @@ package com.deustotickets.domain;
 
 import javax.jdo.annotations.*;
 
+/**
+ * 
+ * @author BSPQ-03
+ *
+ */
 @PersistenceCapable(detachable="true")
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
 public class Artista extends Usuario{

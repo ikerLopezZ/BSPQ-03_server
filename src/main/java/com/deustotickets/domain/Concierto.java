@@ -2,10 +2,16 @@ package com.deustotickets.domain;
 
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 
+/**
+ * 
+ * @author BSPQ-03
+ *
+ */
 @PersistenceCapable(detachable="true")
 public class Concierto {
-	//Atributos:
+	@PrimaryKey
 	private String id;
 	@Persistent(defaultFetchGroup = "true")
 	private Artista artista;
@@ -13,7 +19,6 @@ public class Concierto {
 	private String lugar;
 	private int aforo;
 	
-	//Constructor
 	public Concierto(String id, Artista artista, String fecha, String lugar, int aforo) {
 		super();
 		this.id = id;
@@ -26,7 +31,6 @@ public class Concierto {
 	public Concierto() {
 	}
 
-	//Getters y setters
 	public Artista getArtista() {
 		return artista;
 	}
@@ -67,7 +71,6 @@ public class Concierto {
 		this.id = id;
 	}
 
-	//toString
 	@Override
 	public String toString() {
 		return "Concierto [artista=" + artista.toString() + ", fecha=" + fecha + ", lugar=" + lugar + ", aforo=" + aforo + "]";

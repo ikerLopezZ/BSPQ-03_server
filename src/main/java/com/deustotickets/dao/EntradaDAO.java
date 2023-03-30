@@ -1,4 +1,4 @@
-package com.deustotickets.db;
+package com.deustotickets.dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,11 @@ import javax.jdo.Transaction;
 
 import com.deustotickets.domain.Entrada;
 
+/**
+ * 
+ * @author BSPQ-03
+ *
+ */
 public class EntradaDAO extends DataAccessObjectBase implements IDataAccessObject<Entrada> {
 	private static EntradaDAO instance;	
 	

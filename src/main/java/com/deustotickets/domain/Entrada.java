@@ -2,9 +2,14 @@ package com.deustotickets.domain;
 
 import javax.jdo.annotations.*;
 
+/**
+ * 
+ * @author BSPQ-03
+ *
+ */
 @PersistenceCapable(detachable = "true")
 public class Entrada {
-	// Atributos:
+	@PrimaryKey
 	private String id;
 	@Persistent(defaultFetchGroup = "true")
 	private Concierto concierto;
@@ -12,7 +17,6 @@ public class Entrada {
 	private String nombre;
 	// Pensar si queremos hacer tipos de entrada (VIP, normal...)
 
-	// Constructor
 	public Entrada(String id, Concierto concierto, double precio, String nombre) {
 		super();
 		this.id = id;
@@ -24,7 +28,6 @@ public class Entrada {
 	public Entrada() {
 	}
 
-	// Getters y setters
 	public String getId() {
 		return id;
 	}
@@ -65,10 +68,8 @@ public class Entrada {
 		this.concierto = concierto;
 	}
 
-	// toString
 	@Override
 	public String toString() {
 		return "Entrada [id=" + id + ", concierto=" + concierto + ", precio=" + precio + ", nombre=" + nombre + "]";
 	}
-
 }

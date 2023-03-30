@@ -1,10 +1,15 @@
-package com.deustotickets.db;
+package com.deustotickets.dao;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Transaction;
 
+/**
+ * 
+ * @author BSPQ-03
+ *
+ */
 public class DataAccessObjectBase {
 protected static PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 	
