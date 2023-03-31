@@ -1,9 +1,5 @@
 package com.deustotickets.server;
 
-import javax.jdo.PersistenceManager;
-import javax.jdo.PersistenceManagerFactory;
-import javax.jdo.JDOHelper;
-import javax.jdo.Transaction;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -25,15 +21,10 @@ import org.apache.logging.log4j.LogManager;
 @Produces(MediaType.APPLICATION_JSON)
 public class Resource {
 	protected static final Logger logger = LogManager.getLogger();
-	private PersistenceManager pm = null;
-	private Transaction tx = null;
 
 	public Resource() {
-		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
-		this.pm = pmf.getPersistenceManager();
-		this.tx = pm.currentTransaction();
 	}
-	
+
 	/**
 	 * 
 	 * @param user
@@ -44,7 +35,7 @@ public class Resource {
 	public Response loginUser(Usuario user) {
 		try {
 			Usuario u = UsuarioDAO.getInstance().find(user.getEmail());
-			if(user.getPassword().equals(u.getPassword())) {
+			if (user.getPassword().equals(u.getPassword())) {
 				logger.info("Login succeded");
 				System.out.println("Login succeded");
 				return Response.ok(u, MediaType.APPLICATION_JSON).build();
@@ -52,15 +43,11 @@ public class Resource {
 				logger.error("Login failed");
 				System.out.println("Login failed");
 				return Response.serverError().build();
-			}	
+			}
 		} catch (Exception e) {
 			logger.error("Login failed");
 			System.out.println("Login failed");
 			return Response.serverError().build();
-		} finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
 		}
 	}
 
@@ -73,64 +60,58 @@ public class Resource {
 	@Path("/register")
 	public Response registerUser(Usuario user) {
 		try {
-			tx.begin();
-			try {
-				pm.makePersistent(user);
-				logger.info("User successfully registered");
-				System.out.println("User successfully registered");
-			} catch (Exception e) {
-				logger.info("Register failed");
-				System.out.println("Register failed");
-			}
-			tx.commit();
+			UsuarioDAO.getInstance().save(user);
+			logger.info("User successfully registered");
+			System.out.println("User successfully registered");
 			return Response.ok().build();
-		} finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
+		} catch (Exception e) {
+			logger.info("Register failed");
+			System.out.println("Register failed");
+			return Response.serverError().build();
 		}
 	}
 	
+	/**
+	 * 
+	 * @param user
+	 * @return
+	 */
+	@POST
+	@Path("/changeUsername")
+	public Response changeUsername(Usuario user) {
+		try {
+			Usuario u = UsuarioDAO.getInstance().find(user.getEmail()); // Mirar
+			u.setNombreApellidos(user.getNombreApellidos());
+			UsuarioDAO.getInstance().save(u);
+			logger.info("Username successfully changed");
+			System.out.println("Username successfully changed");
+			return Response.ok().build();
+		} catch (Exception e) {
+			logger.error("Username change failed");
+			System.out.println("Username change failed");
+			return Response.serverError().build();
+		}
+	}
+	
+	/**
+	 * 
+	 * @param user
+	 * @return
+	 */
 	@POST
 	@Path("/changePassword")
 	public Response changePassword(Usuario user) {
 		try {
-			tx.begin();
 			Usuario u = UsuarioDAO.getInstance().find(user.getEmail());
 			u.setPassword(user.getPassword());
-			((UsuarioDAO) pm).save(u);
-			tx.commit();
+			UsuarioDAO.getInstance().save(u);
 			logger.info("Password successfully changed");
 			System.out.println("Password successfully changed");
 			return Response.ok().build();
-		}catch (Exception e){
+		} catch (Exception e) {
 			logger.error("Password change failed");
 			System.out.println("Password change failed");
 			return Response.serverError().build();
-		} finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
 		}
 	}
-	
-	@POST
-	@Path("/userDataUpdate")
-	public Response userDataUpdate(Usuario user) {
-		try {
-			tx.begin();
-			/*
-			 * INSERTA TU CÓDIGO AQUÍ
-			 */
-			
-			return Response.ok().build();
-		}catch (Exception e){
-			return Response.serverError().build();
-		} finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-		}
-	}
-	
 }
