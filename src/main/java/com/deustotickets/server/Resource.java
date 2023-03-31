@@ -95,13 +95,17 @@ public class Resource {
 	@Path("/changePassword")
 	public Response changePassword(Usuario user) {
 		try {
-			
-			/*
-			 * INSERTA TU CÓDIGO AQUÍ
-			 */
-			
+			tx.begin();
+			Usuario u = UsuarioDAO.getInstance().find(user.getEmail());
+			u.setPassword(user.getPassword());
+			((UsuarioDAO) pm).save(u);
+			tx.commit();
+			logger.info("Password successfully changed");
+			System.out.println("Password successfully changed");
 			return Response.ok().build();
 		}catch (Exception e){
+			logger.error("Password change failed");
+			System.out.println("Password change failed");
 			return Response.serverError().build();
 		} finally {
 			if (tx.isActive()) {
@@ -114,7 +118,7 @@ public class Resource {
 	@Path("/userDataUpdate")
 	public Response userDataUpdate(Usuario user) {
 		try {
-			
+			tx.begin();
 			/*
 			 * INSERTA TU CÓDIGO AQUÍ
 			 */
