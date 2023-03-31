@@ -90,4 +90,43 @@ public class Resource {
 			}
 		}
 	}
+	
+	@POST
+	@Path("/changePassword")
+	public Response changePassword(Usuario user) {
+		try {
+			
+			/*
+			 * INSERTA TU CÓDIGO AQUÍ
+			 */
+			
+			return Response.ok().build();
+		}catch (Exception e){
+			return Response.serverError().build();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+		}
+	}
+	
+	@POST
+	@Path("/userDataUpdate")
+	public Response userDataUpdate(Usuario user) {
+		try {
+			
+			/*
+			 * INSERTA TU CÓDIGO AQUÍ
+			 */
+			
+			return Response.ok().build();
+		}catch (Exception e){
+			return Response.serverError().build();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+		}
+	}
+	
 }
