@@ -13,9 +13,10 @@ import javax.jdo.annotations.PrimaryKey;
 @PersistenceCapable(detachable="true")
 public class Usuario implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private String nombreApellidos;
+	
 	@PrimaryKey
 	private String email;
+	private String nombreApellidos;
 	private String password;
 	private TipoUsuario tipo;
 	

@@ -89,6 +89,7 @@ public class Resource {
 		} catch (Exception e) {
 			logger.error("Username change failed");
 			System.out.println("Username change failed");
+			e.printStackTrace();
 			return Response.serverError().build();
 		}
 	}
