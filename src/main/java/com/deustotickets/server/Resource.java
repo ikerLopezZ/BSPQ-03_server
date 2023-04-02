@@ -115,21 +115,25 @@ public class Resource {
 			return Response.serverError().build();
 		}
 	}
+	
+	/**
+	 * 
+	 * @param user
+	 * @return
+	 */
 	@POST
 	@Path("/deleteAccount")
 	public Response deleteAccount(Usuario user) {
 		try {
 			Usuario u = UsuarioDAO.getInstance().find(user.getEmail());
 			UsuarioDAO.getInstance().delete(u);
-			logger.info("Account erase");
-			System.out.println("Account erase");
+			logger.info("Account successfully deleted");
+			System.out.println("Account successfully deleted");
 			return Response.ok().build();
 		} catch (Exception e) {
-			logger.error("Account not erase");
-			System.out.println("Account not erase");
+			logger.error("Account deletion failed");
+			System.out.println("Account deletion failed");
 			return Response.serverError().build();
 		}
 	}
-	
-	
 }
