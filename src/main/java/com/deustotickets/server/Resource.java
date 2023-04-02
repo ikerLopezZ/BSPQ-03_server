@@ -115,4 +115,18 @@ public class Resource {
 			return Response.serverError().build();
 		}
 	}
+	@POST
+	@Path("/erase")
+	public Response erase(Usuario user) {
+		try {
+			UsuarioDAO.getInstance().delete(user);;
+			logger.info("Account erase");
+			System.out.println("Account erase");
+			return Response.ok().build();
+		} catch (Exception e) {
+			logger.error("Account not erase");
+			System.out.println("Account not erase");
+			return Response.serverError().build();
+		}
+	}
 }
