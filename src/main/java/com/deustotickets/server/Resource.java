@@ -119,7 +119,7 @@ public class Resource {
 	@Path("/erase")
 	public Response erase(Usuario user) {
 		try {
-			UsuarioDAO.getInstance().delete(user);;
+			UsuarioDAO.getInstance().delete(user);
 			logger.info("Account erase");
 			System.out.println("Account erase");
 			return Response.ok().build();
