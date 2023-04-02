@@ -116,8 +116,8 @@ public class Resource {
 		}
 	}
 	@POST
-	@Path("/accountErase")
-	public Response accountErase(Usuario user) {
+	@Path("/deleteAccount")
+	public Response deleteAccount(Usuario user) {
 		try {
 			Usuario u = UsuarioDAO.getInstance().find(user.getEmail());
 			UsuarioDAO.getInstance().delete(u);
