@@ -116,10 +116,11 @@ public class Resource {
 		}
 	}
 	@POST
-	@Path("/erase")
-	public Response erase(Usuario user) {
+	@Path("/accountErase")
+	public Response accountErase(Usuario user) {
 		try {
-			UsuarioDAO.getInstance().delete(user);
+			Usuario u = UsuarioDAO.getInstance().find(user.getEmail());
+			UsuarioDAO.getInstance().delete(u);
 			logger.info("Account erase");
 			System.out.println("Account erase");
 			return Response.ok().build();
@@ -129,4 +130,6 @@ public class Resource {
 			return Response.serverError().build();
 		}
 	}
+	
+	
 }
