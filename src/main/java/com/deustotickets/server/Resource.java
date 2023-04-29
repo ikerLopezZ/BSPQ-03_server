@@ -1,7 +1,9 @@
 package com.deustotickets.server;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -11,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.deustotickets.dao.ConciertoDAO;
 import com.deustotickets.dao.UsuarioDAO;
+import com.deustotickets.domain.Artista;
 import com.deustotickets.domain.Concierto;
 import com.deustotickets.domain.Usuario;
 
@@ -60,11 +63,13 @@ public class Resource {
 	 * @param user
 	 * @return
 	 */
-	@POST
+	@GET
 	@Path("/getConcerts")
 	public Response getConcerts() {
 		try {
-			ArrayList<Concierto> conciertos = (ArrayList<Concierto>) ConciertoDAO.getInstance().getAll();
+			List<Concierto> conciertos = (List<Concierto>) ConciertoDAO.getInstance().getAll();
+			System.out.println(conciertos);
+			logger.info(conciertos);
 			logger.info("Got all concerts");
 			System.out.println("Got all concerts");
 			return Response.ok(conciertos, MediaType.APPLICATION_JSON).build();
@@ -171,12 +176,21 @@ public class Resource {
 	public Response modifyConcert(Concierto concert) {
 		try {
 			Concierto c = ConciertoDAO.getInstance().find(concert.getId());
+	
 			
+			Artista a = (Artista) UsuarioDAO.getInstance().find(concert.getArtista().getEmail());
+			if(a != null) {
+				logger.info("The artist already exists, it wont be modified");
+				c.setArtista(a);
+			} else {
+				UsuarioDAO.getInstance().save(concert.getArtista());
+				logger.info("The artist is not in the database, it will be saved");
+				c.setArtista(concert.getArtista());
+			}
 			
-			/*
-			 * INSERTAR MODIFICACIONES 
-			 */
-			
+			c.setAforo(concert.getAforo());
+			c.setFecha(concert.getFecha());
+			c.setLugar(concert.getLugar());
 			
 			ConciertoDAO.getInstance().save(c);
 			logger.info("Concert successfully modified");
