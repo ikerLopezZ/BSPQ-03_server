@@ -59,6 +59,28 @@ public class Resource {
 			return Response.serverError().build();
 		}
 	}
+	
+	/**
+	 * 
+	 * @param user
+	 * @return
+	 */
+	@GET
+	@Path("/getConcerts")
+	public Response getConcerts() {
+		try {
+			List<Concierto> conciertos = (List<Concierto>) ConciertoDAO.getInstance().getAll();
+			System.out.println(conciertos);
+			logger.info(conciertos);
+			logger.info("Got all concerts");
+			System.out.println("Got all concerts");
+			return Response.ok(conciertos, MediaType.APPLICATION_JSON).build();
+		} catch (Exception e) {
+			logger.error("getConcerts() failure");
+			System.out.println("getConcerts() failure");
+			return Response.serverError().build();
+		}
+	}
 
 	/**
 	 * 
@@ -153,48 +175,7 @@ public class Resource {
 	
 	/**
 	 * 
-	 * @param concert
-	 * @return
-	 */
-	@POST
-	@Path("/addConcert")
-	public Response addConcert(Concierto concert) {
-		try {
-			ConciertoDAO.getInstance().save(concert);
-			logger.info("Concert successfully added");
-			System.out.println("Concert successfully added");
-			return Response.ok().build();
-		} catch (Exception e) {
-			logger.error("Concert not added");
-			System.out.println("Concert not added");
-			return Response.serverError().build();
-		}
-	}
-	
-	/**
-	 * 
-	 * @param concert
-	 * @return
-	 */
-	@POST
-	@Path("/deleteConcert")
-	public Response deleteConcert(Concierto concert) {
-		try {
-			Concierto c = ConciertoDAO.getInstance().find(concert.getId());
-			ConciertoDAO.getInstance().delete(c);
-			logger.info("Concert successfully modified");
-			System.out.println("Concert successfully modified");
-			return Response.ok().build();
-		} catch (Exception e) {
-			logger.error("Concert modification failed");
-			System.out.println("Account modification failed");
-			return Response.serverError().build();
-		}
-	}
-	
-	/**
-	 * 
-	 * @param concert
+	 * @param user
 	 * @return
 	 */
 	@POST
@@ -231,21 +212,41 @@ public class Resource {
 	
 	/**
 	 * 
+	 * @param user
 	 * @return
 	 */
-	@GET
-	@Path("/getConcerts")
-	public Response getConcerts() {
+	@POST
+	@Path("/addConcert")
+	public Response addConcert(Concierto concert) {
 		try {
-			List<Concierto> conciertos = (List<Concierto>) ConciertoDAO.getInstance().getAll();
-			System.out.println(conciertos);
-			logger.info(conciertos);
-			logger.info("Got all concerts");
-			System.out.println("Got all concerts");
-			return Response.ok(conciertos, MediaType.APPLICATION_JSON).build();
+			ConciertoDAO.getInstance().save(concert);
+			logger.info("Concert successfully added");
+			System.out.println("Concert successfully added");
+			return Response.ok().build();
 		} catch (Exception e) {
-			logger.error("getConcerts() failure");
-			System.out.println("getConcerts() failure");
+			logger.error("Concert not added");
+			System.out.println("Concert not added");
+			return Response.serverError().build();
+		}
+	}
+	
+	/**
+	 * 
+	 * @param user
+	 * @return
+	 */
+	@POST
+	@Path("/deleteConcert")
+	public Response deleteConcert(Concierto concert) {
+		try {
+			Concierto c = ConciertoDAO.getInstance().find(concert.getId());
+			ConciertoDAO.getInstance().delete(c);
+			logger.info("Concert successfully modified");
+			System.out.println("Concert successfully modified");
+			return Response.ok().build();
+		} catch (Exception e) {
+			logger.error("Concert modification failed");
+			System.out.println("Account modification failed");
 			return Response.serverError().build();
 		}
 	}
@@ -278,11 +279,6 @@ public class Resource {
 		}
 	}
 	
-	/**
-	 * 
-	 * @param user
-	 * @return
-	 */
 	@POST
 	@Path("/banUser")
 	public Response banUser(Usuario user) {
@@ -304,4 +300,39 @@ public class Resource {
 			return Response.serverError().build();
 		}
 	}
+	
+	@GET
+	@Path("/getUsers")
+	public Response getUsers() {
+		try {
+			List<Usuario> usuarios = (List<Usuario>) UsuarioDAO.getInstance().getAll();
+			System.out.println(usuarios);
+			logger.info(usuarios);
+			logger.info("Got all users");
+			System.out.println("Got all users");
+			return Response.ok(usuarios, MediaType.APPLICATION_JSON).build();
+		} catch (Exception e) {
+			logger.error("getUsers() failure");
+			System.out.println("getUsers() failure" + e.toString());
+			return Response.serverError().build();
+		}
+	}
+	
+	@GET
+	@Path("/getArtists")
+	public Response getArtists() {
+		try {
+			List<Artista> artistas = (List<Artista>) ArtistaDAO.getInstance().getAll();
+			System.out.println(artistas);
+			logger.info(artistas);
+			logger.info("Got all artists");
+			System.out.println("Got all artists");
+			return Response.ok(artistas, MediaType.APPLICATION_JSON).build();
+		} catch (Exception e) {
+			logger.error("getArtists() failure ");
+			System.out.println("getArtists() failure" + e.toString());
+			return Response.serverError().build();
+		}
+	}
+	
 }
