@@ -25,9 +25,9 @@ import com.deustotickets.domain.Usuario;
  *
  */
 public class AppTest {
-	Artista a1 = new Artista("Ana Alonso", "ana@gmail.com", "123", TipoUsuario.ARTISTA, TipoGenero.GOSPEL);
-	Artista a2 = new Artista("Marco Marquez", "marco@gmail.com", "456", TipoUsuario.ARTISTA, TipoGenero.REGGAETON);
-	Artista a3 = new Artista("Jon Bilbao", "jon@gmail.com", "789", TipoUsuario.ARTISTA, TipoGenero.COUNTRY);
+	Artista a1 = new Artista("Ana Alonso", "ana@gmail.com", "123", TipoUsuario.ARTISTA, TipoGenero.GOSPEL, false);
+	Artista a2 = new Artista("Marco Marquez", "marco@gmail.com", "456", TipoUsuario.ARTISTA, TipoGenero.REGGAETON, true);
+	Artista a3 = new Artista("Jon Bilbao", "jon@gmail.com", "789", TipoUsuario.ARTISTA, TipoGenero.COUNTRY, true);
 	
 	Concierto c1 = new Concierto("BEC1", a1, "12/12/2023", "BEC - Bilbao", 10500);
 	Concierto c2 = new Concierto("BEC2", a2, "24/06/2023", "Wizink Center - Madrid", 50000);

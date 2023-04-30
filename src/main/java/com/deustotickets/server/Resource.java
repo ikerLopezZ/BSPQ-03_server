@@ -96,8 +96,6 @@ public class Resource {
 			} else if (user.getTipo() == TipoUsuario.ARTISTA) {
 				Artista a = new Artista(user, null, true, false);
 				ArtistaDAO.getInstance().save(a);
-			} else {
-				//AQUI IMPLEMENTACION PARA GESTOR
 			}
 			logger.info("User successfully registered");
 			System.out.println("User successfully registered");
