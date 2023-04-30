@@ -10,6 +10,7 @@ import javax.jdo.annotations.*;
 @PersistenceCapable(detachable="true")
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
 public class Artista extends Usuario{
+	
 	public TipoGenero genero;
 	public boolean verificada;
 	
