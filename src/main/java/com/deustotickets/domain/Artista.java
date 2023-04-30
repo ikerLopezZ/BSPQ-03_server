@@ -10,8 +10,8 @@ import javax.jdo.annotations.*;
 @PersistenceCapable(detachable="true")
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
 public class Artista extends Usuario{
-
 	public TipoGenero genero;
+	public boolean verificada;
 	
 	public TipoGenero getGenero() {
 		return genero;
@@ -22,13 +22,33 @@ public class Artista extends Usuario{
 	}
 
 	public Artista(String nombreApellidos, String email, String contrasenya, TipoUsuario tipo,
-			TipoGenero genero) {
+			TipoGenero genero, boolean verificada) {
 		super(nombreApellidos, email, contrasenya, tipo);
 		this.genero = genero;
+		this.verificada = verificada;
 	}
 	
-	public Artista() {
+	public boolean isVerificada() {
+		return verificada;
 	}
 
+	public void setVerificada(boolean verificada) {
+		this.verificada = verificada;
+	}
+
+	public Artista() {
+		super();
+	}
+	
+	public Artista(Usuario u, TipoGenero tg, boolean setVerification, boolean verified) {
+		super(u.getNombreApellidos(), u.getEmail(), u.getPassword(), u.getTipo());
+		
+		if(tg != null) {
+			this.genero = tg;
+		} else if(setVerification) {
+			this.verificada = verified;
+		}
+		
+	}
 
 }

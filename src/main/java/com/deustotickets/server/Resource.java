@@ -11,10 +11,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.apache.logging.log4j.Logger;
 
+import com.deustotickets.dao.ArtistaDAO;
 import com.deustotickets.dao.ConciertoDAO;
 import com.deustotickets.dao.UsuarioDAO;
 import com.deustotickets.domain.Artista;
 import com.deustotickets.domain.Concierto;
+import com.deustotickets.domain.TipoUsuario;
 import com.deustotickets.domain.Usuario;
 
 import org.apache.logging.log4j.LogManager;
@@ -89,7 +91,14 @@ public class Resource {
 	@Path("/register")
 	public Response registerUser(Usuario user) {
 		try {
-			UsuarioDAO.getInstance().save(user);
+			if(user.getTipo() == TipoUsuario.CLIENTE || user.getTipo() == TipoUsuario.GESTOR) {
+				UsuarioDAO.getInstance().save(user);
+			} else if (user.getTipo() == TipoUsuario.ARTISTA) {
+				Artista a = new Artista(user, null, true, false);
+				ArtistaDAO.getInstance().save(a);
+			} else {
+				//AQUI IMPLEMENTACION PARA GESTOR
+			}
 			logger.info("User successfully registered");
 			System.out.println("User successfully registered");
 			return Response.ok().build();
@@ -240,6 +249,34 @@ public class Resource {
 		} catch (Exception e) {
 			logger.error("Concert modification failed");
 			System.out.println("Account modification failed");
+			return Response.serverError().build();
+		}
+	}
+	
+	/**
+	 * 
+	 * @param user
+	 * @return
+	 */
+	@POST
+	@Path("/verifyArtist")
+	public Response verifyArtist(Artista artista) {
+		try {
+			Artista a = ArtistaDAO.getInstance().find(artista.getEmail());
+			
+			if(a.isVerificada()) {
+				logger.info("The artist is already verified");
+				return Response.serverError().build();
+			} else {
+				a.setVerificada(true);
+				logger.info("Artist successfully verified");
+			}
+			
+			ArtistaDAO.getInstance().save(a);
+			return Response.ok().build();
+		} catch (Exception e) {
+			logger.error("Artist verification failed "+ e.toString());
+			System.out.println("Artist verification failed");
 			return Response.serverError().build();
 		}
 	}
