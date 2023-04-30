@@ -301,7 +301,7 @@ public class Resource {
 		}
 	}
 	
-	@POST
+	@GET
 	@Path("/getUsers")
 	public Response getUsers() {
 		try {
@@ -318,7 +318,7 @@ public class Resource {
 		}
 	}
 	
-	@POST
+	@GET
 	@Path("/getArtists")
 	public Response getArtists() {
 		try {
