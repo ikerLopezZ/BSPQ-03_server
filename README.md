@@ -1,12 +1,12 @@
 # BSPQ-03_server
 
-A continuación se indican los comandos que has de ejecutar en la línea de comandos para lanzar el servidor de la aplicación "DeustoTickets". 
+A continuación se muestran los comandos que se deben ejecutar en la línea de comandos para lanzar el servidor de la aplicación "DeustoTickets". 
 
-Limpiar el servidor por si hubiera algún problema. 
+Limpiar los archivos y directorios generados por Maven durante su compilación. 
 
       mvn clean
 
-Compilar el programa.
+Compilar el proyecto.
 
       mvn compile
       
@@ -21,9 +21,7 @@ Lanzar el programa.
 En este momento, el servidor está lanzado y funcionando; es decir, se puede empezar a usar la aplicación.
 
 *Notas: 
-1. Es necesario tener la aplicación de la BBDD abierta.
-2. Si quieres ver las dependencias, puedes introducir el siguiente comando:
+1. Es necesario tener la aplicación de la BD abierta.
+2. En caso de querer visualizar las dependencias del proyecto, ejecutar el siguiente comando:
 	
-	
-		
-    		mvn dependecy:tree
+    	mvn dependecy:tree
