@@ -17,7 +17,7 @@ import com.deustotickets.domain.Usuario;
 public class UsuarioDAO extends DataAccessObjectBase implements IDataAccessObject<Usuario> {
 	private static UsuarioDAO instance;	
 	
-	private UsuarioDAO() { }
+	public UsuarioDAO() { }
 	
 	public static UsuarioDAO getInstance() {
 		if (instance == null) {

@@ -17,7 +17,7 @@ import com.deustotickets.domain.Artista;
 public class ArtistaDAO extends DataAccessObjectBase implements IDataAccessObject<Artista> {
 	private static ArtistaDAO instance;	
 	
-	private ArtistaDAO() { }
+	public ArtistaDAO() { }
 	
 	public static ArtistaDAO getInstance() {
 		if (instance == null) {

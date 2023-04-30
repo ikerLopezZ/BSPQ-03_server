@@ -17,7 +17,7 @@ import com.deustotickets.domain.Concierto;
 public class ConciertoDAO extends DataAccessObjectBase implements IDataAccessObject<Concierto> {
 	private static ConciertoDAO instance;	
 	
-	private ConciertoDAO() { }
+	public ConciertoDAO() { }
 	
 	public static ConciertoDAO getInstance() {
 		if (instance == null) {

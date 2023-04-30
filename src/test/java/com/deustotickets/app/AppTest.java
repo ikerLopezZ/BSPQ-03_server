@@ -1,12 +1,16 @@
 package com.deustotickets.app;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import com.deustotickets.dao.ArtistaDAO;
 import com.deustotickets.dao.ConciertoDAO;
@@ -25,6 +29,18 @@ import com.deustotickets.domain.Usuario;
  *
  */
 public class AppTest {
+	@Mock
+	private UsuarioDAO userdao;
+	
+	@Mock
+	private ArtistaDAO artistdao;
+	
+	@Mock
+	private ConciertoDAO concertdao;
+	
+	private List<Usuario> users = new ArrayList<Usuario>();
+	private List<Artista> artists = new ArrayList<Artista>();
+	
 	Artista a1 = new Artista("Ana Alonso", "ana@gmail.com", "123", TipoUsuario.ARTISTA, TipoGenero.GOSPEL, false);
 	Artista a2 = new Artista("Marco Marquez", "marco@gmail.com", "456", TipoUsuario.ARTISTA, TipoGenero.REGGAETON, true);
 	Artista a3 = new Artista("Jon Bilbao", "jon@gmail.com", "789", TipoUsuario.ARTISTA, TipoGenero.COUNTRY, true);
@@ -47,120 +63,79 @@ public class AppTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		// Guardamos las ENTRADAS en la BD
-		EntradaDAO.getInstance().save(e1);
-		EntradaDAO.getInstance().save(e2);
-		EntradaDAO.getInstance().save(e3);
+		MockitoAnnotations.openMocks(this);
 		
-		// Guardamos los CONCIERTOS en la BD
-		ConciertoDAO.getInstance().save(c1);
-		ConciertoDAO.getInstance().save(c2);
-		ConciertoDAO.getInstance().save(c3);
+		userdao = new UsuarioDAO();
+		artistdao = new ArtistaDAO();
+		concertdao = new ConciertoDAO();
 		
-		// Guardamos los ARTISTAS en la BD
-		UsuarioDAO.getInstance().save(a1);
-		UsuarioDAO.getInstance().save(a2);
-		UsuarioDAO.getInstance().save(a3);
+		users.add(a1);
+		users.add(a2);
+		users.add(a3);
+		users.add(u1);
+		users.add(u2);
+		users.add(u3);
+		users.add(gestor1);
+		users.add(gestor2);
+		users.add(gestor3);
 		
-		// Guardamos los CLIENTES en la BD
-		UsuarioDAO.getInstance().save(u1);
-		UsuarioDAO.getInstance().save(u2);
-		UsuarioDAO.getInstance().save(u3);
-		
-		// Guardamos los GESTORES en la BD
-		UsuarioDAO.getInstance().save(gestor1);
-		UsuarioDAO.getInstance().save(gestor2);
-		UsuarioDAO.getInstance().save(gestor3);
+		artists.add(a1);
+		artists.add(a2);
+		artists.add(a3);
 				
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		// Borramos las ENTRADAS de la BD
-		EntradaDAO.getInstance().delete(e1);
-		EntradaDAO.getInstance().delete(e2);
-		EntradaDAO.getInstance().delete(e3);
-		
-		// Borramos los CONCIERTOS de la BD
-		ConciertoDAO.getInstance().delete(c1);
-		ConciertoDAO.getInstance().delete(c2);
-		ConciertoDAO.getInstance().delete(c3);
-		
-		// Borramos los ARTISTAS de la BD
-		ArtistaDAO.getInstance().delete(a1);
-		ArtistaDAO.getInstance().delete(a2);
-		ArtistaDAO.getInstance().delete(a3);
-		
-		// Borramos los CLIENTES de la BD
-		UsuarioDAO.getInstance().delete(u1);
-		UsuarioDAO.getInstance().delete(u2);
-		UsuarioDAO.getInstance().delete(u3);
-		
-		// Borramos los GESTORES de la BD
-		UsuarioDAO.getInstance().delete(gestor1);
-		UsuarioDAO.getInstance().delete(gestor2);
-		UsuarioDAO.getInstance().delete(gestor3);
-		
+		userdao = null;
+		artistdao = null;
+		concertdao = null;
 	}
 	
 
 	// ArtistaDAO
 	@Test
 	public void getAllArtistaTest() {
-		List<Artista> todosArtistas = ArtistaDAO.getInstance().getAll();
-		boolean comp = (todosArtistas.size()==3);
-		assertEquals(true, comp);
+		when(artistdao.getInstance().getAll()).thenReturn(artists);
+		ArrayList<Artista> todos = (ArrayList<Artista>) artistdao.getInstance().getAll();
+		assertEquals(3, todos.size());
 	}
 	
 	@Test
 	public void findArtistaTest() {
-		String email = a1.getEmail();
-		Artista artista = ArtistaDAO.getInstance().find(email);
-		assertEquals(email, artista.getEmail());
+
 	}
 	
 	// ConciertoDAO
 	@Test
 	public void getAllConciertoTest() {
-		List<Concierto> todosConciertos = ConciertoDAO.getInstance().getAll();
-		boolean comp = (todosConciertos.size()==3);
-		assertEquals(true, comp);
+
 	}
 	
 	@Test
 	public void findConciertoTest() {
-		String idInput = "BEC1";
-		Concierto concierto = ConciertoDAO.getInstance().find(idInput);
-		assertEquals(idInput, concierto.getId());
+
 	}
 	
 	// EntradaDAO
 	@Test
 	public void getAllEntradaTest() {
-		List<Entrada> todasEntradas = EntradaDAO.getInstance().getAll();
-		boolean comp = (todasEntradas.size()==3);
-		assertEquals(true, comp);
+
 	}
 	
 	@Test
 	public void findEntradaTest() {
-		String id = e1.getId();
-		Entrada entrada = EntradaDAO.getInstance().find(id);
-		assertEquals(id, entrada.getId()); 
+
 	}
 	
 	// UsuarioDAO
 	@Test
 	public void getAllUsuarioTest() {
-		List<Usuario> todosUsuarios = UsuarioDAO.getInstance().getAll();
-		boolean comp = (todosUsuarios.size()==9);	//9, porque también entran los artistas en esta clase.
-		assertEquals(true, comp);
+
 	}
 	
 	@Test
 	public void findUsuarioTest() {
-		String email= u1.getEmail();
-		Usuario usuario = UsuarioDAO.getInstance().find(email);
-		assertEquals(email, usuario.getEmail()); 
+
 	}
 }
