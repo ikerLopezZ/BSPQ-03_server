@@ -19,6 +19,7 @@ public class Usuario implements Serializable{
 	private String nombreApellidos;
 	private String password;
 	private TipoUsuario tipo;
+	private boolean banned;
 	
 	public Usuario(String nombreApellidos, String email, String password, TipoUsuario tipo) {
 		super();
@@ -26,6 +27,7 @@ public class Usuario implements Serializable{
 		this.email = email;
 		this.password = password;
 		this.tipo = tipo;
+		this.banned = false;
 	}
 	
 	public Usuario() {
@@ -61,6 +63,14 @@ public class Usuario implements Serializable{
 
 	public void setTipo(TipoUsuario tipo) {
 		this.tipo = tipo;
+	}
+
+	public boolean isBanned() {
+		return banned;
+	}
+
+	public void setBanned(boolean banned) {
+		this.banned = banned;
 	}
 
 	@Override

@@ -279,4 +279,26 @@ public class Resource {
 		}
 	}
 	
+	@POST
+	@Path("/banUser")
+	public Response banUser(Usuario user) {
+		try {
+			Usuario u = UsuarioDAO.getInstance().find(user.getEmail());
+			
+			if(u.isBanned()) {
+				logger.info("User already banned");
+			} else {
+				u.setBanned(true);
+				logger.info("User successfully banned");
+			}
+			
+			UsuarioDAO.getInstance().save(u);
+			return Response.ok().build();
+		} catch (Exception e) {
+			logger.error("Artist verification failed "+ e.toString());
+			System.out.println("Artist verification failed");
+			return Response.serverError().build();
+		}
+	}
+	
 }
