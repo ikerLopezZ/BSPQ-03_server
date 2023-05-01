@@ -25,3 +25,7 @@ En este momento, el servidor está lanzado y funcionando; es decir, se puede emp
 2. En caso de querer visualizar las dependencias del proyecto, ejecutar el siguiente comando:
 	
     	mvn dependecy:tree
+
+Comando para ejecutar las pruebas unitarias:
+
+      mvn test
