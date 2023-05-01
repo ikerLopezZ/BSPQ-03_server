@@ -36,11 +36,11 @@ public class Entrada {
 		this.id = id;
 	}
 
-	public Concierto getconcierto() {
+	public Concierto getConcierto() {
 		return concierto;
 	}
 
-	public void setconcierto(Concierto concierto) {
+	public void setConcierto(Concierto concierto) {
 		this.concierto = concierto;
 	}
 
@@ -60,16 +60,9 @@ public class Entrada {
 		this.nombre = nombre;
 	}
 
-	public Concierto getConcierto() {
-		return concierto;
-	}
-
-	public void setConcierto(Concierto concierto) {
-		this.concierto = concierto;
-	}
-
 	@Override
 	public String toString() {
 		return "Entrada [id=" + id + ", concierto=" + concierto + ", precio=" + precio + ", nombre=" + nombre + "]";
 	}
+	
 }

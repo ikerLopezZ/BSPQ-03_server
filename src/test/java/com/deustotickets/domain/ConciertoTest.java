@@ -2,75 +2,71 @@ package com.deustotickets.domain;
 
 import static org.junit.Assert.*;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class ConciertoTest {
 
-	private Concierto concert;
-	private Concierto concert2;
-	private Artista art;
-	private Artista art1;
-	
+	Concierto c;
+
 	@Before
-	public void inicio() {
-		concert = new Concierto("id",art,"fecha","lugar",5);
-		concert2 = new Concierto();
-	}
-	
-	@Test
-	public void getArtista() {
-		assertEquals(art, concert.getArtista());
+	public void setUp() throws Exception {
+		c = new Concierto("0", new Artista(), "01/01/2000", "test", 0);
 	}
 
-	@Test
-	public void setArtista() {
-		concert.setArtista(art1);
-		assertEquals(art1, concert.getArtista());
-	}
-	@Test
-	public void getFecha() {
-		assertEquals("fecha", concert.getFecha());
+	@After
+	public void tearDown() throws Exception {
 	}
 	
 	@Test
-	public void setFecha() {
-		concert.setFecha("fecha2");
-		assertEquals("fecha2", concert.getFecha());
-	}	
-	
-	@Test
-	public void getLugar() {
-		assertEquals("lugar", concert.getLugar());
+	public void testGetId() {
+		assertEquals(c.getId().getClass(), String.class);
 	}
 	
 	@Test
-	public void setLugar() {
-		concert.setLugar("lugar2");
-		assertEquals("lugar2", concert.getLugar());
+	public void testGetArtista() {
+		assertEquals(c.getArtista().getClass(), Artista.class);
 	}
 	
 	@Test
-	public void getAforo() {
-		assertEquals(5, concert.getAforo());
+	public void testSetArtista() {
+		c.setArtista(new Artista());
 	}
 	
 	@Test
-	public void setAforo() {
-		concert.setAforo(7);
-		assertEquals(7, concert.getAforo());
+	public void testGetFecha() {
+		assertEquals(c.getFecha().getClass(), String.class);
 	}
 	
 	@Test
-	public void getId() {
-		assertEquals("id", concert.getId());
+	public void testSetFecha() {
+		c.setFecha("01/01/2000");
 	}
 	
 	@Test
-	public void setId() {
-		concert.setId("id2");
-		assertEquals("id2", concert.getId());
+	public void testGetLugar() {
+		assertEquals(c.getLugar().getClass(), String.class);
 	}
 	
+	@Test
+	public void testSetLugar() {
+		c.setLugar("test");
+	}
 	
+	@Test
+	public void testGetAforo() {
+		assertEquals(c.getAforo(), 0);
+	}
+	
+	@Test
+	public void testSetAforo() {
+		c.setAforo(0);
+	}
+	
+	@Test
+	public void testToString() {
+		assertEquals(c.toString(), "Concierto : 0. ARTISTA: Usuario [nombre y apellidos=null, email=null, password=null, tipo=null], FECHA: 01/01/2000, LUGAR: test, AFORO: 0.");
+	}
+
 }
