@@ -312,11 +312,21 @@ public class Resource {
 	public Response getUsers() {
 		try {
 			List<Usuario> usuarios = (List<Usuario>) UsuarioDAO.getInstance().getAll();
+			ArrayList<Usuario> usu = new ArrayList<Usuario>();
+			
+			for (Usuario u: usuarios) {
+				if(u instanceof Artista) {
+					//Do nothing
+				} else {
+					usu.add((Usuario) u);
+				}
+			}
+			
 			System.out.println(usuarios);
 			logger.info(usuarios);
 			logger.info("Got all users");
 			System.out.println("Got all users");
-			return Response.ok(usuarios, MediaType.APPLICATION_JSON).build();
+			return Response.ok(usu, MediaType.APPLICATION_JSON).build();
 		} catch (Exception e) {
 			logger.error("getUsers() failure");
 			System.out.println("getUsers() failure" + e.toString());
