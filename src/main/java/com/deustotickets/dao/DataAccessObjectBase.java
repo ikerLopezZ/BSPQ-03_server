@@ -12,7 +12,7 @@ import javax.jdo.Transaction;
  */
 public class DataAccessObjectBase {
 protected static PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
-	
+
 	public void deleteObject(Object object) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();

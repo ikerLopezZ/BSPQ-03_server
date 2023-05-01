@@ -70,11 +70,17 @@ public class Resource {
 	public Response getConcerts() {
 		try {
 			List<Concierto> conciertos = (List<Concierto>) ConciertoDAO.getInstance().getAll();
+			ArrayList<Concierto> con = new ArrayList<Concierto>();
+			
+			for(Concierto c : conciertos) {
+				con.add(c);
+			}
+			
 			System.out.println(conciertos);
 			logger.info(conciertos);
 			logger.info("Got all concerts");
 			System.out.println("Got all concerts");
-			return Response.ok(conciertos, MediaType.APPLICATION_JSON).build();
+			return Response.ok(con, MediaType.APPLICATION_JSON).build();
 		} catch (Exception e) {
 			logger.error("getConcerts() failure");
 			System.out.println("getConcerts() failure");

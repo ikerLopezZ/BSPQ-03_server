@@ -9,7 +9,7 @@ import javax.jdo.Transaction;
 
 import com.deustotickets.domain.Usuario;
 
-/***
+/**
  * 
  * @author BSPQ-03
  *
@@ -22,13 +22,12 @@ public class UsuarioDAO extends DataAccessObjectBase implements IDataAccessObjec
 	public static UsuarioDAO getInstance() {
 		if (instance == null) {
 			instance = new UsuarioDAO();
-		}		
-		
+		}			
 		return instance;
 	}
 	
 	@Override
-	public void save(Usuario object) {
+	public void save(Usuario object) { 
 		super.saveObject(object);
 	}
 
@@ -41,18 +40,13 @@ public class UsuarioDAO extends DataAccessObjectBase implements IDataAccessObjec
 	public List<Usuario> getAll() {				
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
-
 		List<Usuario> Usuarios = new ArrayList<>();
-		
 		try {
 			tx.begin();
-			
 			Extent<Usuario> extent = pm.getExtent(Usuario.class, true);
-
 			for (Usuario category : extent) {
 				Usuarios.add(category);
 			}
-
 			tx.commit();
 		} catch (Exception ex) {
 			System.out.println("  $ Error retrieving all the Usuarios: " + ex.getMessage());
@@ -60,10 +54,8 @@ public class UsuarioDAO extends DataAccessObjectBase implements IDataAccessObjec
 			if (tx != null && tx.isActive()) {
 				tx.rollback();
 			}
-
 			pm.close();
 		}
-
 		return Usuarios;
 	}
 
@@ -71,16 +63,12 @@ public class UsuarioDAO extends DataAccessObjectBase implements IDataAccessObjec
 	public Usuario find(String param) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
-		
 		Usuario result = null; 
-
 		try {
-			tx.begin();
-						
+			tx.begin();		
 			Query query = pm.newQuery("SELECT FROM " + Usuario.class.getName() + " WHERE email == '" + param+"'");
 			query.setUnique(true);
 			result = (Usuario) query.execute();
-			
 			tx.commit();
 		} catch (Exception ex) {
 			System.out.println("  $ Error querying an Usuario: " + ex.getMessage());
@@ -88,11 +76,8 @@ public class UsuarioDAO extends DataAccessObjectBase implements IDataAccessObjec
 			if (tx != null && tx.isActive()) {
 				tx.rollback();
 			}
-
 			pm.close();
 		}
-
 		return result;
 	}
-	
 }
