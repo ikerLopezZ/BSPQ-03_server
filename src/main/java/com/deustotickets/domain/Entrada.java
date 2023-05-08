@@ -21,6 +21,9 @@ public class Entrada {
 		super();
 		this.id = id;
 		this.concierto = concierto;
+		if(this.concierto.getEntradasDisponibles() > 0) {
+			this.concierto.comprarEntrada();
+		}
 		this.precio = precio;
 		this.nombre = nombre;
 	}

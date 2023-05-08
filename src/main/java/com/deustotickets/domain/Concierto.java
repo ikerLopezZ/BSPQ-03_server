@@ -18,6 +18,7 @@ public class Concierto {
 	private String fecha;
 	private String lugar;
 	private int aforo;
+	private int entradasDisponibles;
 	
 	public Concierto(String id, Artista artista, String fecha, String lugar, int aforo) {
 		super();
@@ -26,9 +27,19 @@ public class Concierto {
 		this.fecha = fecha;
 		this.lugar = lugar;
 		this.aforo = aforo;
+		this.entradasDisponibles = aforo;
 	}
 	
 	public Concierto() {
+		super();
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public Artista getArtista() {
@@ -62,18 +73,26 @@ public class Concierto {
 	public void setAforo(int aforo) {
 		this.aforo = aforo;
 	}
-
-	public String getId() {
-		return id;
+	
+	public int getEntradasDisponibles() {
+		return entradasDisponibles;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setEntradasDisponibles(int entradasDisponibles) {
+		this.entradasDisponibles = entradasDisponibles;
 	}
 
+	public void comprarEntrada() {
+		this.entradasDisponibles--;
+	}
+	
+	public void devolverEntrada() {
+		this.entradasDisponibles++;
+	}
+	
 	@Override
 	public String toString() {
-		return "Concierto : " + id + ". ARTISTA: " + artista + ", FECHA: " + fecha + ", LUGAR: " + lugar + ", AFORO: " + aforo + ".";
+		return "Concierto : " + id + ". ARTISTA: " + artista + ", FECHA: " + fecha + ", LUGAR: " + lugar + ", entradasDisponibles: " + entradasDisponibles + ".";
 	}
 	
 }
