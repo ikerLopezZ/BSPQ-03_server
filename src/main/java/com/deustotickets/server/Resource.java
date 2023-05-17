@@ -13,9 +13,11 @@ import org.apache.logging.log4j.Logger;
 
 import com.deustotickets.dao.ArtistaDAO;
 import com.deustotickets.dao.ConciertoDAO;
+import com.deustotickets.dao.EntradaDAO;
 import com.deustotickets.dao.UsuarioDAO;
 import com.deustotickets.domain.Artista;
 import com.deustotickets.domain.Concierto;
+import com.deustotickets.domain.Entrada;
 import com.deustotickets.domain.TipoUsuario;
 import com.deustotickets.domain.Usuario;
 
@@ -351,6 +353,23 @@ public class Resource {
 		}
 	}
 	
+	@POST
+	@Path("/buyTicket")
+	public Response buyTicket(Entrada ent) {
+		try {
+			Concierto con = ConciertoDAO.getInstance().find(ent.getConcierto().getId());
+			con.setEntradasDisponibles(ent.getConcierto().getEntradasDisponibles());
+			ent.setConcierto(con);
+			EntradaDAO.getInstance().save(ent);
+			logger.info("Ticket successfully bought");
+			System.out.println("Ticket successfully bought");
+			return Response.ok().build();
+		} catch (Exception e) {
+			logger.error("Ticket not added");
+			System.out.println("Ticket not added");
+			return Response.serverError().build();
+		}
+	}
 	
 	
 }
