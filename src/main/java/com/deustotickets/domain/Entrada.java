@@ -1,5 +1,7 @@
 package com.deustotickets.domain;
 
+import java.io.Serializable;
+
 import javax.jdo.annotations.*;
 
 /**
@@ -8,7 +10,7 @@ import javax.jdo.annotations.*;
  *
  */
 @PersistenceCapable(detachable = "true")
-public class Entrada {
+public class Entrada implements Serializable {
 	@PrimaryKey
 	private String id;
 	@Persistent(defaultFetchGroup = "true")

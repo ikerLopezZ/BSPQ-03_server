@@ -371,5 +371,33 @@ public class Resource {
 		}
 	}
 	
+	@POST
+	@Path("/updateUserTickets")
+	public Response updateUserTickets(Usuario u) {
+		try {
+			Usuario us = UsuarioDAO.getInstance().find(u.getEmail());
+			ArrayList<Entrada> mine = new ArrayList<Entrada>();
+			
+			for (Entrada e : u.getMisEntradas()) {
+				Entrada ent = EntradaDAO.getInstance().find(e.getId());
+				Concierto c = ConciertoDAO.getInstance().find(ent.getConcierto().getId());
+				Artista a = ArtistaDAO.getInstance().find(c.getArtista().getEmail());
+				c.setArtista(a);
+				ent.setConcierto(c);
+				mine.add(ent);
+			}
+			
+			us.setMisEntradas(mine);
+			UsuarioDAO.getInstance().save(us);
+			logger.info("User updated");
+			System.out.println("User updated");
+			return Response.ok().build();
+		} catch (Exception e) {
+			logger.error("User not updated");
+			System.out.println("User not updated");
+			return Response.serverError().build();
+		}
+	}
+	
 	
 }
