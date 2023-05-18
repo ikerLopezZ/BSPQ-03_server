@@ -15,6 +15,7 @@
 		<server.hostname>127.0.0.1</server.hostname>
 		<server.port>8080</server.port>
 	</properties>
+	
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -92,6 +93,12 @@
 			<version>4.6.0</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+            <groupId>com.github.noconnor</groupId>
+            <artifactId>junitperf</artifactId>
+            <version>1.25.0-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
 	</dependencies>
 	<build>
 		<resources>
@@ -221,6 +228,20 @@
 					<configurationFile>${doxygen.config.file}</configurationFile>
 				</configuration>
 			</plugin>
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
 	<reporting>
