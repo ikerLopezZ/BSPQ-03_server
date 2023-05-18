@@ -24,8 +24,6 @@ import com.deustotickets.dao.UsuarioDAO;
 import com.deustotickets.domain.TipoUsuario;
 import com.deustotickets.domain.Usuario;
 
-
-
 public class ResourceTest {
 
     @Mock
