@@ -9,11 +9,6 @@ import javax.jdo.Transaction;
 
 import com.deustotickets.domain.Usuario;
 
-/**
- * 
- * @author BSPQ-03
- *
- */
 public class UsuarioDAO extends DataAccessObjectBase implements IDataAccessObject<Usuario> {
 	private static UsuarioDAO instance;	
 	

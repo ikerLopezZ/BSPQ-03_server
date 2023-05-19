@@ -9,11 +9,6 @@ import javax.jdo.Transaction;
 
 import com.deustotickets.domain.Entrada;
 
-/**
- * 
- * @author BSPQ-03
- *
- */
 public class EntradaDAO extends DataAccessObjectBase implements IDataAccessObject<Entrada> {
 	private static EntradaDAO instance;	
 	

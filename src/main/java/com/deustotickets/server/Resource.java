@@ -23,11 +23,6 @@ import com.deustotickets.domain.Usuario;
 
 import org.apache.logging.log4j.LogManager;
 
-/**
- * 
- * @author BSPQ-03
- *
- */
 @Path("/resource")
 @Produces(MediaType.APPLICATION_JSON)
 public class Resource {
@@ -36,11 +31,6 @@ public class Resource {
 	public Resource() {
 	}
 
-	/**
-	 * 
-	 * @param user
-	 * @return
-	 */
 	@POST
 	@Path("/login")
 	public static Response loginUser(Usuario user) {
@@ -63,11 +53,6 @@ public class Resource {
 		}
 	}
 	
-	/**
-	 * 
-	 * @param user
-	 * @return
-	 */
 	@GET
 	@Path("/getConcerts")
 	public static Response getConcerts() {
@@ -89,11 +74,6 @@ public class Resource {
 		}
 	}
 
-	/**
-	 * 
-	 * @param user
-	 * @return
-	 */
 	@POST
 	@Path("/register")
 	public static Response registerUser(Usuario user) {
@@ -114,11 +94,6 @@ public class Resource {
 		}
 	}
 	
-	/**
-	 * 
-	 * @param user
-	 * @return
-	 */
 	@POST
 	@Path("/changeUsername")
 	public static Response changeUsername(Usuario user) {
@@ -137,11 +112,6 @@ public class Resource {
 		}
 	}
 	
-	/**
-	 * 
-	 * @param user
-	 * @return
-	 */
 	@POST
 	@Path("/changePassword")
 	public static Response changePassword(Usuario user) {
@@ -159,11 +129,6 @@ public class Resource {
 		}
 	}
 	
-	/**
-	 * 
-	 * @param user
-	 * @return
-	 */
 	@POST
 	@Path("/deleteAccount")
 	public static Response deleteAccount(Usuario user) {
@@ -180,11 +145,6 @@ public class Resource {
 		}
 	}
 	
-	/**
-	 * 
-	 * @param user
-	 * @return
-	 */
 	@POST
 	@Path("/modifyConcert")
 	public static Response modifyConcert(Concierto concert) {
@@ -217,11 +177,6 @@ public class Resource {
 		}
 	}
 	
-	/**
-	 * 
-	 * @param user
-	 * @return
-	 */
 	@POST
 	@Path("/addConcert")
 	public static Response addConcert(Concierto concert) {
@@ -237,11 +192,6 @@ public class Resource {
 		}
 	}
 	
-	/**
-	 * 
-	 * @param user
-	 * @return
-	 */
 	@POST
 	@Path("/deleteConcert")
 	public static Response deleteConcert(Concierto concert) {
@@ -258,11 +208,6 @@ public class Resource {
 		}
 	}
 	
-	/**
-	 * 
-	 * @param user
-	 * @return
-	 */
 	@POST
 	@Path("/verifyArtist")
 	public static Response verifyArtist(Artista artista) {

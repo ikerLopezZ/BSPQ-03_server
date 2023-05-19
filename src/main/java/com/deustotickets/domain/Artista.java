@@ -4,15 +4,10 @@ import java.io.Serializable;
 
 import javax.jdo.annotations.*;
 
-/**
- * 
- * @author BSPQ-03
- *
- */
 @PersistenceCapable(detachable="true")
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
 public class Artista extends Usuario implements Serializable{
-	
+	private static final long serialVersionUID = 1L;
 	public TipoGenero genero;
 	public boolean verificada;
 	

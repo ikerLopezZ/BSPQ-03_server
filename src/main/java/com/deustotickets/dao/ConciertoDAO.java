@@ -9,11 +9,6 @@ import javax.jdo.Transaction;
 
 import com.deustotickets.domain.Concierto;
 
-/**
- * 
- * @author BSPQ-03
- *
- */
 public class ConciertoDAO extends DataAccessObjectBase implements IDataAccessObject<Concierto> {
 	private static ConciertoDAO instance;	
 	

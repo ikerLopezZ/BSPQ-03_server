@@ -4,13 +4,9 @@ import java.io.Serializable;
 
 import javax.jdo.annotations.*;
 
-/**
- * 
- * @author BSPQ-03
- *
- */
 @PersistenceCapable(detachable = "true")
 public class Entrada implements Serializable {
+	private static final long serialVersionUID = 1L;
 	@PrimaryKey
 	private String id;
 	@Persistent(defaultFetchGroup = "true")

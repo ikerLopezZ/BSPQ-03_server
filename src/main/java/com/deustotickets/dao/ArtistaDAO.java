@@ -9,11 +9,6 @@ import javax.jdo.Transaction;
 
 import com.deustotickets.domain.Artista;
 
-/**
- * 
- * @author BSPQ-03
- *
- */
 public class ArtistaDAO extends DataAccessObjectBase implements IDataAccessObject<Artista> {
 	private static ArtistaDAO instance;	
 	
