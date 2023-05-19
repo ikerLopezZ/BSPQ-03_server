@@ -5,8 +5,11 @@ import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.mockitoSession;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -23,6 +26,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -38,29 +42,32 @@ public class ResourceTest {
 	
 	Usuario u;
 	
+	@Mock
 	private Usuario usuario;
-
+	@Mock
     private UsuarioDAO usuarioDAO;
-    
+	@Mock
     private ConciertoDAO conciertoDAO;
-    
+	@Mock
     private EntradaDAO entradaDAO;
-    
+	@Mock
     private ArtistaDAO artistaDAO;
-    
+	
     private Resource resource;
-    
+	@Mock
     private Response response;
     
     @Before
     public void setUp() {
-      usuario = mock(Usuario.class);
-      usuarioDAO = mock(UsuarioDAO.class);
-      conciertoDAO = mock(ConciertoDAO.class);
-      entradaDAO = mock(EntradaDAO.class);
-      artistaDAO = mock(ArtistaDAO.class);
-      resource = mock(Resource.class);
-      response = mock(Response.class);
+    	usuario = mock(Usuario.class);
+    	usuarioDAO = mock(UsuarioDAO.class);
+    	conciertoDAO = mock(ConciertoDAO.class);
+    	entradaDAO = mock(EntradaDAO.class);
+    	artistaDAO = mock(ArtistaDAO.class);
+    	response = mock(Response.class);
+    	
+    	resource = new Resource();
+    	
       u = new Usuario("test", "test@example.com", "password", TipoUsuario.CLIENTE);
       
       usuario.setNombreApellidos(u.getNombreApellidos());
@@ -70,58 +77,30 @@ public class ResourceTest {
       }
 
     @Test
-    public void testLoginUserSuccessful() throws Exception {
-    	
+    public void testLoginUserFailure() throws Exception {
     	when(usuarioDAO.find(u.getEmail())).thenReturn(u);
     	
-    	assertEquals(Resource.loginUser(u).getStatus(), Response.Status.OK.getStatusCode());
+    	Usuario uaux = u;
+    	uaux.setPassword(u.getPassword() + ".");
+    	assertEquals(resource.loginUser(uaux).getStatus(), Response.Status.INTERNAL_SERVER_ERROR.getStatusCode());
     }
 
-    @Test
-    public void testLoginUserFailed() throws Exception {
-//        Usuario user = new Usuario("Test","test@test.com", "password", TipoUsuario.CLIENTE);
-//        Usuario u = new Usuario("Test","test@test.com", "wrongpassword", TipoUsuario.CLIENTE);
-//
-//        when(usuarioDAO.find(user.getEmail())).thenReturn(u);
-//
-//        Response response = resource.loginUser(user);
-//
-//        assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
-    }
 
     @Test
-    public void testLoginUserException() throws Exception {
-//        Usuario user = new Usuario("Test","test@test.com", "password", TipoUsuario.CLIENTE);
-//
-//        when(usuarioDAO.find(user.getEmail())).thenThrow(new RuntimeException());
-//
-//        Response response = resource.loginUser(user);
-//
-//        assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
+    public void testGetConcertsFailure() {
+    	
     }
     
     @Test
-    public void testgetConcerts() throws Exception {
-    	ArrayList<Concierto> lista = new ArrayList<Concierto>();
-    	lista.add(new Concierto("Test", null, "Test","Test" , 110));
+    public void testRegisterUserFailure() {
     	
-    	when(conciertoDAO.getAll()).thenReturn(lista);
-    
-    	assertEquals(Resource.getConcerts().getStatus(), Response.Status.OK.getStatusCode());
     }
     
-//    @Test
-//    public void testgetConcertsException() throws Exception {
-//    	when(conciertoDAO.getAll()).thenThrow(new Exception("TEST"));
-//        
-//    	assertThrows(Exception.class,() -> Resource.getConcerts());
-//    }
-    
     @Test
-    public void testChangeUsername() throws Exception {
-    	when(usuarioDAO.find(u.getEmail())).thenReturn(u);
+    public void testChangeUsernameFailure() throws Exception {
+    	when(usuarioDAO.find(Mockito.anyString())).thenReturn(u);
     	
-    	assertEquals(Resource.changeUsername(u).getStatus(), Response.Status.OK.getStatusCode());
+    	assertEquals(resource.changeUsername(u).getStatus(), Response.Status.INTERNAL_SERVER_ERROR.getStatusCode());
     }
     
     

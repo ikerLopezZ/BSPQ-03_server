@@ -17,7 +17,7 @@ import com.deustotickets.domain.Entrada;
 public class EntradaDAO extends DataAccessObjectBase implements IDataAccessObject<Entrada> {
 	private static EntradaDAO instance;	
 	
-	private EntradaDAO() { }
+	public EntradaDAO() { }
 	
 	public static EntradaDAO getInstance() {
 		if (instance == null) {

@@ -12,7 +12,9 @@ import javax.jdo.annotations.PrimaryKey;
  *
  */
 @PersistenceCapable(detachable="true")
-public class Concierto implements Serializable{
+public class Concierto implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	@PrimaryKey
 	private String id;
 	@Persistent(defaultFetchGroup = "true")
