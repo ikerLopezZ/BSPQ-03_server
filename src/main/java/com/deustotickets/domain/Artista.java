@@ -1,5 +1,7 @@
 package com.deustotickets.domain;
 
+import java.io.Serializable;
+
 import javax.jdo.annotations.*;
 
 /**
@@ -9,7 +11,7 @@ import javax.jdo.annotations.*;
  */
 @PersistenceCapable(detachable="true")
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
-public class Artista extends Usuario{
+public class Artista extends Usuario implements Serializable{
 	
 	public TipoGenero genero;
 	public boolean verificada;

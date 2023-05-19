@@ -1,5 +1,7 @@
 package com.deustotickets.domain;
 
+import java.io.Serializable;
+
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
@@ -10,7 +12,7 @@ import javax.jdo.annotations.PrimaryKey;
  *
  */
 @PersistenceCapable(detachable="true")
-public class Concierto {
+public class Concierto implements Serializable{
 	@PrimaryKey
 	private String id;
 	@Persistent(defaultFetchGroup = "true")

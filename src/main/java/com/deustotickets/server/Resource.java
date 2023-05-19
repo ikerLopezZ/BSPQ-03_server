@@ -43,9 +43,10 @@ public class Resource {
 	 */
 	@POST
 	@Path("/login")
-	public Response loginUser(Usuario user) {
+	public static Response loginUser(Usuario user) {
 		try {
 			Usuario u = UsuarioDAO.getInstance().find(user.getEmail());
+			System.out.println(UsuarioDAO.getInstance().find(user.getEmail()));
 			if (user.getPassword().equals(u.getPassword())) {
 				logger.info("Login succeded");
 				System.out.println("Login succeded");
@@ -56,8 +57,8 @@ public class Resource {
 				return Response.serverError().build();
 			}
 		} catch (Exception e) {
-			logger.error("Login failed");
-			System.out.println("Login failed");
+			logger.error("Login failed by an exception: "+ e.toString());
+			System.out.println("Login failed by an exception");
 			return Response.serverError().build();
 		}
 	}
@@ -69,16 +70,14 @@ public class Resource {
 	 */
 	@GET
 	@Path("/getConcerts")
-	public Response getConcerts() {
+	public static Response getConcerts() {
 		try {
 			List<Concierto> conciertos = (List<Concierto>) ConciertoDAO.getInstance().getAll();
 			ArrayList<Concierto> con = new ArrayList<Concierto>();
-			
 			for(Concierto c : conciertos) {
 				con.add(c);
 			}
 			
-			System.out.println(conciertos);
 			logger.info(conciertos);
 			logger.info("Got all concerts");
 			System.out.println("Got all concerts");
@@ -97,7 +96,7 @@ public class Resource {
 	 */
 	@POST
 	@Path("/register")
-	public Response registerUser(Usuario user) {
+	public static Response registerUser(Usuario user) {
 		try {
 			if(user.getTipo() == TipoUsuario.CLIENTE || user.getTipo() == TipoUsuario.GESTOR) {
 				UsuarioDAO.getInstance().save(user);
@@ -122,9 +121,9 @@ public class Resource {
 	 */
 	@POST
 	@Path("/changeUsername")
-	public Response changeUsername(Usuario user) {
+	public static Response changeUsername(Usuario user) {
 		try {
-			Usuario u = UsuarioDAO.getInstance().find(user.getEmail()); // Mirar
+			Usuario u = UsuarioDAO.getInstance().find(user.getEmail());
 			u.setNombreApellidos(user.getNombreApellidos());
 			UsuarioDAO.getInstance().save(u);
 			logger.info("Username successfully changed");
@@ -145,7 +144,7 @@ public class Resource {
 	 */
 	@POST
 	@Path("/changePassword")
-	public Response changePassword(Usuario user) {
+	public static Response changePassword(Usuario user) {
 		try {
 			Usuario u = UsuarioDAO.getInstance().find(user.getEmail());
 			u.setPassword(user.getPassword());
@@ -167,7 +166,7 @@ public class Resource {
 	 */
 	@POST
 	@Path("/deleteAccount")
-	public Response deleteAccount(Usuario user) {
+	public static Response deleteAccount(Usuario user) {
 		try {
 			Usuario u = UsuarioDAO.getInstance().find(user.getEmail());
 			UsuarioDAO.getInstance().delete(u);
@@ -188,7 +187,7 @@ public class Resource {
 	 */
 	@POST
 	@Path("/modifyConcert")
-	public Response modifyConcert(Concierto concert) {
+	public static Response modifyConcert(Concierto concert) {
 		try {
 			Concierto c = ConciertoDAO.getInstance().find(concert.getId());
 	
@@ -225,7 +224,7 @@ public class Resource {
 	 */
 	@POST
 	@Path("/addConcert")
-	public Response addConcert(Concierto concert) {
+	public static Response addConcert(Concierto concert) {
 		try {
 			ConciertoDAO.getInstance().save(concert);
 			logger.info("Concert successfully added");
@@ -245,7 +244,7 @@ public class Resource {
 	 */
 	@POST
 	@Path("/deleteConcert")
-	public Response deleteConcert(Concierto concert) {
+	public static Response deleteConcert(Concierto concert) {
 		try {
 			Concierto c = ConciertoDAO.getInstance().find(concert.getId());
 			ConciertoDAO.getInstance().delete(c);
@@ -266,7 +265,7 @@ public class Resource {
 	 */
 	@POST
 	@Path("/verifyArtist")
-	public Response verifyArtist(Artista artista) {
+	public static Response verifyArtist(Artista artista) {
 		try {
 			Artista a = ArtistaDAO.getInstance().find(artista.getEmail());
 			
@@ -289,7 +288,7 @@ public class Resource {
 	
 	@POST
 	@Path("/banUser")
-	public Response banUser(Usuario user) {
+	public static Response banUser(Usuario user) {
 		try {
 			Usuario u = UsuarioDAO.getInstance().find(user.getEmail());
 			
@@ -311,7 +310,7 @@ public class Resource {
 	
 	@GET
 	@Path("/getUsers")
-	public Response getUsers() {
+	public static Response getUsers() {
 		try {
 			List<Usuario> usuarios = (List<Usuario>) UsuarioDAO.getInstance().getAll();
 			ArrayList<Usuario> usu = new ArrayList<Usuario>();
@@ -338,7 +337,7 @@ public class Resource {
 	
 	@GET
 	@Path("/getArtists")
-	public Response getArtists() {
+	public static Response getArtists() {
 		try {
 			List<Artista> artistas = (List<Artista>) ArtistaDAO.getInstance().getAll();
 			System.out.println(artistas);
@@ -355,7 +354,7 @@ public class Resource {
 	
 	@POST
 	@Path("/buyTicket")
-	public Response buyTicket(Entrada ent) {
+	public static Response buyTicket(Entrada ent) {
 		try {
 			Concierto con = ConciertoDAO.getInstance().find(ent.getConcierto().getId());
 			con.setEntradasDisponibles(ent.getConcierto().getEntradasDisponibles());
@@ -373,7 +372,7 @@ public class Resource {
 	
 	@POST
 	@Path("/updateUserTickets")
-	public Response updateUserTickets(Usuario u) {
+	public static Response updateUserTickets(Usuario u) {
 		try {
 			Usuario us = UsuarioDAO.getInstance().find(u.getEmail());
 			ArrayList<Entrada> mine = new ArrayList<Entrada>();
