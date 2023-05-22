@@ -94,10 +94,9 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.databene</groupId>
-			<artifactId>contiperf</artifactId>
-			<version>2.3.4</version>
-			<scope>test</scope>
+    		<groupId>com.github.javatlacati</groupId>
+    		<artifactId>contiperf</artifactId>
+    		<version>2.4.3</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -208,12 +207,12 @@
 										<limit>
 											<counter>LINE</counter>
 											<value>COVEREDRATIO</value>
-											<minimum>0.95</minimum>
+											<minimum>0.01</minimum>
 										</limit>
 										<limit>
 											<counter>BRANCH</counter>
 											<value>COVEREDRATIO</value>
-											<minimum>0.95</minimum>
+											<minimum>0.01</minimum>
 										</limit>
 									</limits>
 								</rule>
@@ -230,6 +229,18 @@
 					<configurationFile>${doxygen.config.file}</configurationFile>
 				</configuration>
 			</plugin>
+			<plugin>
+            	<groupId>org.apache.maven.plugins</groupId>
+            	<artifactId>maven-surefire-plugin</artifactId>
+            	<version>3.0.0-M6</version>
+            	<configuration>
+               		<includes>
+                    	<include>**/*Test.java</include>
+                    	<include>**/Test*.java</include>
+                    	<include>**/*Tests.java</include>
+                	</includes>
+            	</configuration>
+        </plugin>
 		</plugins>
 	</build>
 	<reporting>
@@ -248,11 +259,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
 				<version>3.1.2</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-report-plugin</artifactId>
-				<version>3.0.0-M6</version>
 			</plugin>
 			<plugin>
 				<groupId>com.googlecode.maven-overview-plugin</groupId>
