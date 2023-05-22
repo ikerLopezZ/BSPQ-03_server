@@ -343,4 +343,21 @@ public class Resource {
 		}
 	}
 	
+	@POST
+	@Path("/returnTickets")
+	public static Response returnTicket(Entrada ent) {
+		try {
+			Concierto con = ConciertoDAO.getInstance().find(ent.getConcierto().getId());
+			con.setEntradasDisponibles(ent.getConcierto().getEntradasDisponibles());
+			ent.setConcierto(con);
+			EntradaDAO.getInstance().delete(ent);
+			logger.info("Ticket successfully bought");
+			System.out.println("Ticket successfully bought");
+			return Response.ok().build();
+		} catch (Exception e) {
+			logger.error("Ticket not added");
+			System.out.println("Ticket not added");
+			return Response.serverError().build();
+		}
+	}
 }
