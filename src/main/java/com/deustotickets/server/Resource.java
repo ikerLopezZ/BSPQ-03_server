@@ -18,6 +18,7 @@ import com.deustotickets.dao.UsuarioDAO;
 import com.deustotickets.domain.Artista;
 import com.deustotickets.domain.Concierto;
 import com.deustotickets.domain.Entrada;
+import com.deustotickets.domain.Resena;
 import com.deustotickets.domain.TipoUsuario;
 import com.deustotickets.domain.Usuario;
 

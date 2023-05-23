@@ -1,7 +1,9 @@
 package com.deustotickets.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
+import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
@@ -18,7 +20,7 @@ public class Concierto implements Serializable {
 	private String lugar;
 	private int aforo;
 	private int entradasDisponibles;
-	
+
 	public Concierto(String id, Artista artista, String fecha, String lugar, int aforo) {
 		super();
 		this.id = id;
