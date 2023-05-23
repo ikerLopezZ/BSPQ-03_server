@@ -36,7 +36,6 @@ public class Resource {
 	public static Response loginUser(Usuario user) {
 		try {
 			Usuario u = UsuarioDAO.getInstance().find(user.getEmail());
-			System.out.println(UsuarioDAO.getInstance().find(user.getEmail()));
 			if (user.getPassword().equals(u.getPassword())) {
 				logger.info("Login succeded");
 				System.out.println("Login succeded");
@@ -302,6 +301,8 @@ public class Resource {
 	public static Response buyTicket(Entrada ent) {
 		try {
 			Concierto con = ConciertoDAO.getInstance().find(ent.getConcierto().getId());
+			Artista artista = ArtistaDAO.getInstance().find(con.getArtista().getEmail());
+			con.setArtista(artista);
 			con.setEntradasDisponibles(ent.getConcierto().getEntradasDisponibles());
 			ent.setConcierto(con);
 			EntradaDAO.getInstance().save(ent);
